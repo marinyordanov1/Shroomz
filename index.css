@@ -247,6 +247,25 @@
 }
 
 @layer components {
+  /* here is styled only if it is not focused */
+  .skip-to-main:not(:focus) {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  /* here is styled only if it is focused */
+  .skip-to-main {
+    padding: 0 0.5rem;
+    margin-left: 0.5rem;
+    background: var(--background-main);
+    border-radius: var(--border-radius-3);
+  }
+
   .site-header {
     padding-block: 1rem;
   }
