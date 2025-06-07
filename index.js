@@ -1,8 +1,12 @@
-function compareDateStrings(s1, s2) {
-  const d1 = Date(s1);
-  const d2 = Date(s2);
-  const delta = d2 - d1;
-  return `${s1} is ${delta > 0 ? "after" : "before"} ${s2}`;
-}
+const navToggle = document.querySelector('[aria-controls="primary-nav"]');
+const primaryNav = document.querySelector("#primary-navigation");
 
-console.log(compareDateStrings(1, 2));
+navToggle.addEventListener("click", () => {
+  const navOpened = navToggle.getAttribute("aria-expanded");
+
+  if (navOpened === "false") {
+    navToggle.setAttribute("aria-expanded", true);
+  } else navToggle.setAttribute("aria-expanded", false);
+
+  console.log(navOpened);
+});
