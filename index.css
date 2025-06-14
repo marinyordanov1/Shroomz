@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 @layer reset {
   *,
   *::before,
@@ -290,6 +294,8 @@
 
   .site-header {
     padding-block: 1rem;
+    position: relative;
+    overflow-x: clip;
   }
 
   .site-header__inner {
@@ -330,19 +336,26 @@
     }
 
     @media (width < 760px) {
-      display: none;
-      position: absolute;
-      z-index: 10;
-      padding: 2rem;
-      top: 0;
-      right: 0;
-      font-size: var(--font-size-lg);
-      font-weight: 700;
-      font-family: var(--ff-heading);
-      background-color: var(--background-accent-main);
-      border-radius: 0 0 0 var(--border-radius-3);
-      ul {
-        flex-direction: column;
+      & {
+        display: none;
+        opacity: 0;
+        transition: opacity 1s, display 1s, translate 1s;
+        transition-behavior: allow-discrete;
+        translate: 100% 0;
+
+        position: absolute;
+        z-index: 10;
+        padding: 2rem;
+        top: 0;
+        right: 0;
+        font-size: var(--font-size-lg);
+        font-weight: 700;
+        font-family: var(--ff-heading);
+        background-color: var(--background-accent-main);
+        border-radius: 0 0 0 var(--border-radius-3);
+        ul {
+          flex-direction: column;
+        }
       }
 
       li + li {
@@ -357,8 +370,15 @@
     [aria-controls="primary-nav"] {
       display: block;
     }
-    [aria-expanded="true"] + .primary-navigation {
+    [aria-expanded="true"] ~ .primary-navigation {
       display: block;
+      opacity: 1;
+      translate: 0 0;
+
+      @starting-style {
+        opacity: 0;
+        translate: 0 -100%;
+      }
     }
   }
 
@@ -384,6 +404,10 @@
     background-image: url(./assets/hero.webp);
     background-size: cover;
     background-position: center;
+
+    animation: fade-out forwards;
+    animation-timeline: view();
+    animation-range-start: exit;
   }
 
   .hero__title {
@@ -548,6 +572,11 @@
     display: none;
   }
 
+  .resizing * {
+    transition: none;
+    animation: none;
+  }
+
   .text-center {
     text-align: center;
   }
@@ -603,5 +632,14 @@
     position: absolute;
     white-space: nowrap;
     width: 1px;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
