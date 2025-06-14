@@ -47,10 +47,6 @@ Course/
 └── README.md
 ```
 
-## Screenshots
-
-![Site Screenshot](assets/hero.webp)
-
 ## Contributing
 
 Contributions, issues, and feature requests are welcome!  
